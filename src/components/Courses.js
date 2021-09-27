@@ -22,32 +22,32 @@ const Courses = () => {
   const classes = useStyles();
   const courses = [
     {
-      image: "/assets/frontend.jpg",
+      image: "/frontend.jpg",
       heading: "Frontend Web Development",
       subheading: "Learn HTML, CSS and Javascript",
     },
     {
-      image: "/assets/backend.jpg",
+      image: "/backend.jpg",
       heading: "Backend Web Development",
       subheading: "Learn Node.js, Flask, Django, Laravel, PHP and more",
     },
     {
-      image: "/assets/android.jpg",
+      image: "/android.jpg",
       heading: "Android App Development",
       subheading: "Learn Java and Kotlin",
     },
     {
-      image: "/assets/iOS.jpg",
+      image: "/iOS.jpg",
       heading: "iOS App Development",
       subheading: "Learn Swift and Objective-C",
     },
     {
-      image: "/assets/frontend frameworks.jpg",
+      image: "/frontend frameworks.jpg",
       heading: "Frontend Frameworks",
       subheading: "Learn React, Angular, Vue and Bootstrap",
     },
     {
-      image: "/assets/competitive programming.jpg",
+      image: "/competitive programming.jpg",
       heading: "Competitive Programming",
       subheading: "Learn Data Structure and Algorithms, DP and more",
     },
@@ -60,7 +60,7 @@ const Courses = () => {
             <Card>
               <CardActionArea>
                 <CardMedia
-                style={{height: '250px'}}
+                  style={{ height: "250px" }}
                   image={course.image}
                   title={course.heading}
                 ></CardMedia>
