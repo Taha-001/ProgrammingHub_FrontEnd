@@ -11,11 +11,42 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
-
+import GTranslateIcon from "@material-ui/icons/GTranslate";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import useInput from "../hooks/use-input";
 const theme = createTheme();
+const buttonStyle = {
+  textTransform: "none",
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  borderColor: "#000000",
+  borderRadius: "10rem",
+  color: "#000000",
+  fontSize: "15px",
+  letterSpacing: "0",
+};
 
 function LoginPage() {
   const history = useHistory();
+  const {
+    value: enteredEmail,
+    isValid: emailIsValid,
+    valueChangeHandler: emailChangeHandler,
+    blurChangeHandler: emailBlurHandler,
+    hasError: emailHasError,
+  } = useInput((value) => value.includes("@"));
+  const {
+    value: enteredPassword,
+    isValid: passwordIsValid,
+    valueChangeHandler: passwordChangeHandler,
+    blurChangeHandler: passwordBlurHandler,
+    hasError: passwordHasError,
+  } = useInput((value) => value.trim() !== "");
+  let formIsValid = false;
+  if (emailIsValid && passwordIsValid) {
+    formIsValid = true;
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -54,6 +85,7 @@ function LoginPage() {
               flexDirection: "column",
               alignItems: "center",
             }}
+            style={{ marginTop: "12px" }}
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
@@ -63,8 +95,8 @@ function LoginPage() {
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-                error
-                helperText="Please enter a valid email."
+                error={emailHasError}
+                helperText={emailHasError && "Please enter a valid email."}
                 margin="normal"
                 required
                 fullWidth
@@ -74,10 +106,17 @@ function LoginPage() {
                 autoComplete="email"
                 autoFocus
                 variant="filled"
+                onChange={emailChangeHandler}
+                onBlur={emailBlurHandler}
+                value={enteredEmail}
+                type="email"
               />
               <TextField
-                error
-                helperText="Incorrect Password."
+                error={passwordHasError}
+                onChange={passwordChangeHandler}
+                onBlur={passwordBlurHandler}
+                value={enteredPassword}
+                helperText={passwordHasError && "Please enter your password."}
                 margin="normal"
                 required
                 fullWidth
@@ -91,6 +130,7 @@ function LoginPage() {
               <Button
                 type="submit"
                 fullWidth
+                disabled={!formIsValid}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => history.push("/learn")}
@@ -110,6 +150,28 @@ function LoginPage() {
                 </Grid>
               </Grid>
             </Box>
+            <Grid container spacing={3} style={{ padding: "8px" }} mt={1}>
+              <Grid item xs={12}>
+                <Button
+                  variant="outlined"
+                  startIcon={<GTranslateIcon />}
+                  style={buttonStyle}
+                  fullWidth
+                >
+                  Continue with Google
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="outlined"
+                  startIcon={<GitHubIcon />}
+                  style={buttonStyle}
+                  fullWidth
+                >
+                  Continue with GitHub
+                </Button>
+              </Grid>
+            </Grid>
           </Box>
         </Grid>
       </Grid>
