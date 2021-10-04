@@ -1,6 +1,5 @@
 import React from "react";
 import SideDrawer from "./SideDrawer";
-import TopNavigationBar from "./TopNavigationBar";
 import { makeStyles } from "@material-ui/core";
 import { drawerWidth } from "./SideDrawer";
 import { Grid } from "@material-ui/core";
@@ -21,7 +20,6 @@ const Groups = () => {
 
   return (
     <div>
-      <TopNavigationBar />
       <Grid container className={classes.gridContainer}>
         <h2 className={classes.h2}>You haven't been added to any groups yet.</h2>
       </Grid>
