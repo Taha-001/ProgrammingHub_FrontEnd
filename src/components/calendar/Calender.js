@@ -9,6 +9,17 @@ import {
   Appointments,
   TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
+import { makeStyles } from "@material-ui/core";
+import { drawerWidth } from "../SideDrawer";
+
+const useStyles = makeStyles({
+  gridContainer: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: "auto",
+    marginTop: "1rem",
+    marginRight: "0.2rem",
+  },
+});
 
 const appointments = [
   {
@@ -20,22 +31,21 @@ const appointments = [
 
 const currentDate = new Date();
 
-export default () => (
-  <Grid
-    direction="column"
-    justifyContent="flex-end"
-    alignItems="center"
-    xs={12}
-  >
-    <Paper>
-      <Scheduler data={appointments}>
-        <ViewState defaultCurrentDate={currentDate} />
-        <MonthView />
-        <Toolbar />
-        <DateNavigator />
-        <TodayButton />
-        <Appointments />
-      </Scheduler>
-    </Paper>
-  </Grid>
-);
+const Calendar = () => {
+  const classes = useStyles();
+  return (
+    <Grid className={classes.gridContainer}>
+      <Paper>
+        <Scheduler data={appointments}>
+          <ViewState defaultCurrentDate={currentDate} />
+          <MonthView />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
+          <Appointments />
+        </Scheduler>
+      </Paper>
+    </Grid>
+  );
+};
+export default Calendar;
