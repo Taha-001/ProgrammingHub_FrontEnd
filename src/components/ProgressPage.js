@@ -1,6 +1,5 @@
 import React from "react";
 import SideDrawer from "./SideDrawer";
-import TopNavigationBar from "./TopNavigationBar";
 import { drawerWidth } from "./SideDrawer";
 import {
   Grid,
@@ -57,7 +56,6 @@ const ProgressPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <TopNavigationBar />
       <Grid container className={classes.gridContainer} spacing={3}>
         <Grid item md={4}>
           <Card elevation={0} variant="outlined" className={classes.card}>
