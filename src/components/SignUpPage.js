@@ -10,10 +10,50 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Paper } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useInput from "../hooks/use-input";
 
 const theme = createTheme();
 
 export default function SignUpPage() {
+  const {
+    hasError: usernameHasError,
+    value: username,
+    valueChangeHandler: usernameChangeHandler,
+    blurChangeHandler: usernameBlurHandler,
+    isValid: usernameIsValid,
+  } = useInput((value) => value.length > 6);
+  const {
+    value: enteredEmail,
+    isValid: emailIsValid,
+    valueChangeHandler: emailChangeHandler,
+    blurChangeHandler: emailBlurHandler,
+    hasError: emailHasError,
+  } = useInput((value) => value.includes("@"));
+  const {
+    value: enteredPassword,
+    isValid: passwordIsValid,
+    valueChangeHandler: passwordChangeHandler,
+    blurChangeHandler: passwordBlurHandler,
+    hasError: passwordHasError,
+  } = useInput((value) => value.trim() !== "");
+  const {
+    value: enteredConfirmPassword,
+    isValid: confirmPasswordIsValid,
+    valueChangeHandler: confirmPasswordChangeHandler,
+    blurChangeHandler: confirmPasswordBlurHandler,
+    hasError: confirmPasswordHasError,
+  } = useInput((value) => value.trim() !== "");
+
+  let formIsValid = false;
+  if (
+    usernameIsValid &&
+    emailIsValid &&
+    passwordIsValid &&
+    confirmPasswordIsValid &&
+    enteredPassword === enteredConfirmPassword
+  ) {
+    formIsValid = true;
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -61,8 +101,13 @@ export default function SignUpPage() {
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-                error
-                helperText="Please enter a valid username."
+                error={usernameHasError}
+                onChange={usernameChangeHandler}
+                onBlur={usernameBlurHandler}
+                value={username}
+                helperText={
+                  usernameHasError && "Please enter a valid username."
+                }
                 margin="normal"
                 required
                 fullWidth
@@ -74,8 +119,11 @@ export default function SignUpPage() {
                 variant="filled"
               />
               <TextField
-                error
-                helperText="Please enter a valid email."
+                error={emailHasError}
+                onChange={emailChangeHandler}
+                onBlur={emailBlurHandler}
+                value={enteredEmail}
+                helperText={emailHasError && "Please enter a valid email."}
                 margin="normal"
                 required
                 fullWidth
@@ -89,6 +137,9 @@ export default function SignUpPage() {
               <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                    onChange={passwordChangeHandler}
+                    onBlur={passwordBlurHandler}
+                    value={enteredPassword}
                     autoComplete="password"
                     name="password"
                     required
@@ -96,20 +147,28 @@ export default function SignUpPage() {
                     id="password"
                     label="Password"
                     autoFocus
-                    error
-                    helperText="Please enter a password"
+                    variant="filled"
+                    error={passwordHasError}
+                    helperText={passwordHasError && "Please enter a password."}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                    onBlur={confirmPasswordBlurHandler}
+                    onChange={confirmPasswordChangeHandler}
+                    value={enteredConfirmPassword}
                     required
                     fullWidth
+                    variant="filled"
                     id="Confirm Password"
                     label="Confirm Password"
                     name="Confirm Password"
                     autoComplete="Confirm Password"
-                    error
-                    helperText="Please enter a password"
+                    error={confirmPasswordHasError}
+                    helperText={
+                      confirmPasswordHasError &&
+                      "Please re-enter the password and check if it matches with the password."
+                    }
                   />
                 </Grid>
               </Grid>
@@ -121,6 +180,7 @@ export default function SignUpPage() {
                 onClick={() => {
                   <Link href="/learn" to="/learn" />;
                 }}
+                disabled={!formIsValid}
               >
                 Sign Up
               </Button>

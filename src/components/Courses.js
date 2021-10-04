@@ -51,6 +51,17 @@ const Courses = () => {
       heading: "Competitive Programming",
       subheading: "Learn Data Structure and Algorithms, DP and more",
     },
+    {
+      image: "/machine-learning.jpg",
+      heading: "Machine Learning",
+      subheading: "Learn how to create Machine Learning Algorithms",
+    },
+    {
+      image: "AI.jpg",
+      heading: "Artificial Intelligence",
+      subheading:
+        "Learn how to create Artificial Intelligence Programs and More",
+    },
   ];
   return (
     <Grid container spacing={3} className={classes.gridContainer}>
