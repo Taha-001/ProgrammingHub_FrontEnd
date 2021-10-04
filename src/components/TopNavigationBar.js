@@ -22,17 +22,23 @@ const TopNavigationBar = () => {
     {
       name: "All",
     },
+    // {
+    //   name: "Design",
+    // },
     {
-      name: "Design",
+      name: "Web Development",
     },
     {
-      name: "Web Dev",
+      name: "App Development",
     },
     {
-      name: "App Dev",
+      name: "Competitive Programming",
     },
     {
-      name: "Programming",
+      name: "Machine Learning",
+    },
+    {
+      name: "Artificial Intelligence",
     },
   ];
   const classes = useStyles();
