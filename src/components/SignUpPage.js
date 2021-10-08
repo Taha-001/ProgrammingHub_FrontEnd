@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { Paper } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useInput from "../hooks/use-input";
+import { signupInitiate } from "../Redux/Action/actions";
 
 const theme = createTheme();
 
@@ -54,14 +56,19 @@ export default function SignUpPage() {
   ) {
     formIsValid = true;
   }
+  // getting user from redux
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const email = data.get("email");
+    const password = data.get("password");
+    const displayName = data.get("username");
+
+    dispatch(signupInitiate(email, password, displayName));
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
