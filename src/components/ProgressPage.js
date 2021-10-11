@@ -1,5 +1,4 @@
 import React from "react";
-import SideDrawer from "./SideDrawer";
 import { drawerWidth } from "./SideDrawer";
 import {
   Grid,
@@ -110,25 +109,44 @@ const ProgressPage = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item spacing={3} md={3}>
+        <Grid item spacing={3} md={2}>
           <Card elevation={0} variant="outlined" className={classes.card}>
             <CardContent>
               <Typography variant="h5">Today's progress</Typography>
-              <Typography variant="h2">0%</Typography>
+              <Typography variant="h2" align="center">
+                0%
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item spacing={3} md={3}>
           <Card elevation={0} variant="outlined" className={classes.card}>
             <CardContent>
-              <Typography variant="h5">Rank</Typography>
-              <Typography variant="h2">0</Typography>
-              <Typography variant="body1">You haven't started competitive programming yet.</Typography>
+              <Typography variant="h5" align="center">
+                Rank
+              </Typography>
+              <Typography variant="h2" align="center">
+                0
+              </Typography>
+              <Typography variant="body1">
+                You haven't started competitive programming yet.
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item spacing={3} md={3}>
+          <Card elevation={0} variant="outlined" className={classes.card}>
+            <CardContent>
+              <Typography variant="h5" align="center">
+                Weekly Activity
+              </Typography>
+              <Typography variant="h2" align="center">
+                0%
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
-      <SideDrawer />
     </div>
   );
 };
