@@ -56,8 +56,7 @@ export default function SignUpPage() {
   ) {
     formIsValid = true;
   }
-  // getting user from redux
-  const { currentUser } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {

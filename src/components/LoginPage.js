@@ -14,6 +14,8 @@ import { useHistory } from "react-router-dom";
 import GTranslateIcon from "@material-ui/icons/GTranslate";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import useInput from "../hooks/use-input";
+import { useDispatch } from "react-redux";
+import { loginInitiate } from "../Redux/Action/actions";
 const theme = createTheme();
 const buttonStyle = {
   textTransform: "none",
@@ -29,6 +31,7 @@ const buttonStyle = {
 
 function LoginPage() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -50,11 +53,16 @@ function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const email = data.get("email");
+    const password = data.get("password");
+    dispatch(loginInitiate(email, password));
     // eslint-disable-next-line no-console
+    console.log(2);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
+    history.push("/learn");
   };
 
   return (
@@ -133,7 +141,7 @@ function LoginPage() {
                 disabled={!formIsValid}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={() => history.push("/learn")}
+                // onClick={() => history.push("/learn")}
               >
                 Login
               </Button>
