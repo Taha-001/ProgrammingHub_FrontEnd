@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   },
 });
 const CourseItem = (props) => {
+  const selectedCourseHandler = (selectedCourse) => {
+    const userChoice = { ...selectedCourse, date: new Date().toDateString() };
+  };
   const classes = useStyles();
   return (
     <li>
@@ -44,6 +47,12 @@ const CourseItem = (props) => {
           disableElevation
           href={props.link}
           className={classes.button}
+          target="_blank"
+          onClick={selectedCourseHandler.bind(null, {
+            heading: props.heading,
+            type: props.type,
+            link: props.link,
+          })}
         >
           Start Course
         </Button>

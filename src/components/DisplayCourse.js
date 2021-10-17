@@ -13,7 +13,8 @@ import {
 } from "@material-ui/core";
 import CourseItem from "./CourseItem";
 import { modalHandler } from "../Redux/Action/actions";
-import { useDispatch } from "react-redux";
+import { filterCoursesHandler } from "../Redux/Action/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   radioGroup: {
@@ -37,37 +38,46 @@ const useStyles = makeStyles({
     marginTop: "2rem",
   },
 });
-let initialCourses = courseInfo[0].courses;
 const DisplayCourse = () => {
+  const courses = useSelector((state) => state.courses.items);
+  const courseHeading = useSelector((state) => state.courses.heading);
+  const courseType = useSelector((state) => state.courses.courseType);
+  const filteredItems = useSelector((state) => state.courses.filteredItems);
   const dispatch = useDispatch();
-  const [courseType, setCourseType] = useState(null);
-  const [courses, setCourses] = useState(initialCourses);
+  const classes = useStyles();
   const courseTypeChangeHandler = (event) => {
-    setCourseType(event.target.value);
-    console.log(courseType);
-    setCourses(
-      courseInfo[0].courses.filter((course) => {
-        return course.type === courseType;
+    const filteredCourses = courses.filter(
+      (course) => course.type === event.target.value
+    );
+    dispatch(
+      filterCoursesHandler({
+        filteredItems: filteredCourses,
+        courseType: event.target.value,
       })
     );
-    console.log(courses);
   };
-  const classes = useStyles();
   const closeModal = () => {
-    dispatch(modalHandler());
+    dispatch(
+      modalHandler({
+        heading: "",
+        courses: [],
+        courseType: null,
+        filteredItems: [],
+      })
+    );
   };
   const modalContent = (
     <div className={classes.root}>
       <Typography component="h1" variant="h4" className={classes.heading}>
-        {courseInfo[0].heading}
+        {courseHeading}
       </Typography>
       <FormControl component="fieldset">
         <FormLabel component="legend">Course Type:</FormLabel>
         <RadioGroup
           name="course_type"
           className={classes.radioGroup}
-          value={courseType}
           onChange={courseTypeChangeHandler}
+          value={courseType}
         >
           <FormControlLabel
             value="Free"
@@ -85,17 +95,30 @@ const DisplayCourse = () => {
         </RadioGroup>
       </FormControl>
       <ul className={classes.courseItems}>
-        {courses.map((course) => {
-          return (
-            <CourseItem
-              key={course.id}
-              heading={course.heading}
-              subheading={course.subheading}
-              type={course.type}
-              link={course.link}
-            />
-          );
-        })}
+        {!courseType &&
+          courses.map((course) => {
+            return (
+              <CourseItem
+                key={course.id}
+                heading={course.heading}
+                subheading={course.subheading}
+                type={course.type}
+                link={course.link}
+              />
+            );
+          })}
+        {courseType &&
+          filteredItems.map((course) => {
+            return (
+              <CourseItem
+                key={course.id}
+                heading={course.heading}
+                subheading={course.subheading}
+                type={course.type}
+                link={course.link}
+              />
+            );
+          })}
       </ul>
     </div>
   );

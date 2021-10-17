@@ -1,11 +1,15 @@
 import React, { Fragment } from "react";
 import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
+import { useDispatch } from "react-redux";
+import { modalHandler } from "../Redux/Action/actions";
 
-const Backdrop = (props) => {
-  return (
-    <div className={classes.backdrop} onClick={props.onClickCloseCart}></div>
-  );
+const Backdrop = () => {
+  const dispatch = useDispatch();
+  const closeModalHandler = () => {
+    dispatch(modalHandler({ heading: "", courses: [] }));
+  };
+  return <div className={classes.backdrop} onClick={closeModalHandler}></div>;
 };
 
 const ModalOverlay = (props) => {
@@ -29,6 +33,5 @@ const Modal = (props) => {
     </Fragment>
   );
 };
-
 
 export default Modal;
