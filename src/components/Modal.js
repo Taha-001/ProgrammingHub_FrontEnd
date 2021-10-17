@@ -1,35 +1,34 @@
-import React from "react";
-import { Typography } from "@material-ui/core";
+import React, { Fragment } from "react";
+import { createPortal } from "react-dom";
+import classes from "./Modal.module.css";
 
-// const Backdrop = (props) => {
-//   return (
-//     <div className={classes.backdrop} onClick={props.onClickCloseCart}></div>
-//   );
-// };
-
-const Modal = (props) => {
+const Backdrop = (props) => {
   return (
-    <div>
-      <h4>{props.title}</h4>
-      <label for="free">Free</label>
-      <input type="radio" name="course-type" id="free" />
-      <label for="free">Paid</label>
-      <input type="radio" name="course-type" id="paid" />
-      <ul>
-        <li>
-          <Typography>FreeCodeCamp</Typography>
-          <Typography>Responsive Web Design</Typography>
-          <button>Start Course</button>
-        </li>
-        <li>
-          <Typography>FreeCodeCamp</Typography>
-          <Typography>Responsive Web Design</Typography>
-          <button>Start Course</button>
-        </li>
-      </ul>
-      <button>Close</button>
+    <div className={classes.backdrop} onClick={props.onClickCloseCart}></div>
+  );
+};
+
+const ModalOverlay = (props) => {
+  return (
+    <div className={classes.modal}>
+      <div className={classes.content}>{props.children}</div>
     </div>
   );
 };
+
+const portalElement = document.getElementById("overlays");
+
+const Modal = (props) => {
+  return (
+    <Fragment>
+      {createPortal(<Backdrop />, portalElement)}
+      {createPortal(
+        <ModalOverlay>{props.children}</ModalOverlay>,
+        portalElement
+      )}
+    </Fragment>
+  );
+};
+
 
 export default Modal;

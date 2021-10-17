@@ -16,6 +16,10 @@ const signupFail = (error) => ({
   payload: error,
 });
 
+export const modalHandler = () => ({
+  type: types.showModalHandler,
+});
+
 export const signupInitiate = (email, password, displayName) => {
   return function (dispatch) {
     dispatch(signupStart());
@@ -57,15 +61,15 @@ export const loginInitiate = (email, password) => {
 
 //LOGOUT
 
-const loginStart = () => ({
+const logoutStart = () => ({
   type: types.LOGOUT_START,
 });
 
-const loginSuccess = (user) => ({
+const logoutSuccess = (user) => ({
   type: types.LOGOUT_SUCCESS,
 });
 
-const loginFail = (error) => ({
+const logoutFail = (error) => ({
   type: types.LOGOUT_FAIL,
   payload: error,
 });
