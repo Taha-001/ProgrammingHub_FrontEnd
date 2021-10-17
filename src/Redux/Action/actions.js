@@ -16,6 +16,10 @@ const signupFail = (error) => ({
   payload: error,
 });
 
+export const modalHandler = () => ({
+  type: types.showModalHandler,
+});
+
 export const signupInitiate = (email, password, displayName) => {
   return function (dispatch) {
     dispatch(signupStart());

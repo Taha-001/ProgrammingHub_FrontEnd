@@ -8,43 +8,53 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
 import { drawerWidth } from "./SideDrawer";
+import { useDispatch } from "react-redux";
+import { modalHandler } from "../Redux/Action/actions";
 const courses = [
   {
+    id: 1,
     image: "/frontend.jpg",
     heading: "Frontend Web Development",
     subheading: "Learn HTML, CSS and Javascript",
   },
   {
+    id: 2,
     image: "/backend.jpg",
     heading: "Backend Web Development",
     subheading: "Learn Node.js, Flask, Django, Laravel, PHP and more",
   },
   {
+    id: 3,
     image: "/android.jpg",
     heading: "Android App Development",
     subheading: "Learn Java and Kotlin",
   },
   {
+    id: 4,
     image: "/iOS.jpg",
     heading: "iOS App Development",
     subheading: "Learn Swift and Objective-C",
   },
   {
+    id: 5,
     image: "/frontend frameworks.jpg",
     heading: "Frontend Frameworks",
     subheading: "Learn React, Angular, Vue and Bootstrap",
   },
   {
+    id: 6,
     image: "/competitive programming.jpg",
     heading: "Competitive Programming",
     subheading: "Learn Data Structure and Algorithms, DP and more",
   },
   {
+    id: 7,
     image: "/machine-learning.jpg",
     heading: "Machine Learning",
     subheading: "Learn how to create Machine Learning Algorithms",
   },
   {
+    id: 8,
     image: "AI.jpg",
     heading: "Artificial Intelligence",
     subheading: "Learn how to create Artificial Intelligence Programs and More",
@@ -61,18 +71,22 @@ const useStyles = makeStyles({
 });
 
 const Courses = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const courseClickedHandler=(heading)=>{
+  const courseClickedHandler = (heading) => {
     console.log(heading);
-  }
+    dispatch(modalHandler());
+  };
 
   return (
     <Grid container spacing={3} className={classes.gridContainer}>
       {courses.map((course) => {
         return (
-          <Grid item sm={4}>
+          <Grid item sm={4} key={course.id}>
             <Card>
-              <CardActionArea onClick={courseClickedHandler.bind(null,course.heading )}>
+              <CardActionArea
+                onClick={courseClickedHandler.bind(null, course.heading)}
+              >
                 <CardMedia
                   style={{ height: "250px" }}
                   image={course.image}
