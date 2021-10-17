@@ -65,7 +65,7 @@ const logoutStart = () => ({
   type: types.LOGOUT_START,
 });
 
-const logoutSuccess = (user) => ({
+const logoutSuccess = () => ({
   type: types.LOGOUT_SUCCESS,
 });
 
