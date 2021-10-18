@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
-import courseInfo from "./CourseInfo";
+import React from "react";
+import Modal from "../UI/Modal";
 import {
   Button,
   FormControl,
@@ -11,7 +10,7 @@ import {
   RadioGroup,
   makeStyles,
 } from "@material-ui/core";
-import CourseItem from "./CourseItem";
+import CourseItem from "./course/CourseItem";
 import { modalHandler } from "../Redux/Action/actions";
 import { filterCoursesHandler } from "../Redux/Action/actions";
 import { useDispatch, useSelector } from "react-redux";
