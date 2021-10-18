@@ -7,9 +7,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
-import { drawerWidth } from "./SideDrawer";
+import { drawerWidth } from "../SideDrawer";
 import { useDispatch } from "react-redux";
-import { modalHandler } from "../Redux/Action/actions";
+import { modalHandler } from "../../Redux/Action/actions";
 import courseInfo from "./CourseInfo";
 import CloseIcon from "@material-ui/icons/Close";
 
