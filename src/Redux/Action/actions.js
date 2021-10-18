@@ -16,8 +16,14 @@ const signupFail = (error) => ({
   payload: error,
 });
 
-export const modalHandler = () => ({
+export const modalHandler = (courseInfo) => ({
   type: types.showModalHandler,
+  payload: courseInfo,
+});
+
+export const filterCoursesHandler = (courseInfo) => ({
+  type: types.filterCourses,
+  payload: courseInfo,
 });
 
 export const signupInitiate = (email, password, displayName) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Grid } from "@material-ui/core";
+import { Card, Grid, Snackbar, IconButton } from "@material-ui/core";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,6 +10,9 @@ import { makeStyles } from "@material-ui/core";
 import { drawerWidth } from "./SideDrawer";
 import { useDispatch } from "react-redux";
 import { modalHandler } from "../Redux/Action/actions";
+import courseInfo from "./CourseInfo";
+import CloseIcon from "@material-ui/icons/Close";
+
 const courses = [
   {
     id: 1,
@@ -71,11 +74,26 @@ const useStyles = makeStyles({
 });
 
 const Courses = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   const classes = useStyles();
   const courseClickedHandler = (heading) => {
-    console.log(heading);
-    dispatch(modalHandler());
+    const findCourse = courseInfo.find((course) => course.heading === heading);
+    dispatch(
+      modalHandler({ courses: findCourse.courses, heading: findCourse.heading })
+    );
   };
 
   return (
@@ -114,6 +132,32 @@ const Courses = () => {
           </Grid>
         );
       })}
+      <Button onClick={handleClick}>Open simple snackbar</Button>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Course Added."
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+              UNDO
+            </Button>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </Grid>
   );
 };

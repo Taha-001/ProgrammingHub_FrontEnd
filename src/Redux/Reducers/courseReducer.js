@@ -5,6 +5,7 @@ const initialState = {
   heading: "",
   items: [],
   courseType: null,
+  filteredItems:[],
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -13,10 +14,19 @@ const courseReducer = (state = initialState, action) => {
       return {
         ...state,
         showModal: !state.showModal,
+        items: action.payload.courses,
+        heading: action.payload.heading,
+        filteredItems:action.payload.filteredItems,
+        courseType:action.payload.courseType,
       };
-      break;
-      default:
-          return state;
+    case types.filterCourses:
+      return {
+        ...state,
+        courseType: action.payload.courseType,
+        filteredItems: action.payload.filteredItems,
+      };
+    default:
+      return state;
   }
 };
 export default courseReducer;
