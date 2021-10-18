@@ -62,7 +62,7 @@ function LoginPage() {
       email: data.get("email"),
       password: data.get("password"),
     });
-    history.push("/learn");
+    history.push("/");
   };
 
   return (
